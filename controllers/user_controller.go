@@ -83,3 +83,22 @@ func DeleteUserController(c echo.Context) error {
 		"status": "success",
 	})
 }
+
+func GetUserDetailControllers(c echo.Context) error {
+	id, err := strconv.Atoi(c.Param("id"))
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	users, err := database.GetDetailUsers((id))
+
+	if err != nil {
+		return echo.NewHTTPError(http.StatusBadRequest, err.Error())
+	}
+
+	return c.JSON(http.StatusOK, map[string]interface{}{
+		"status": "success",
+		"users":  users,
+	})
+}
