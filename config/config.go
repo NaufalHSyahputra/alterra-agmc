@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"log"
 
+	"github.com/NaufalHSyahputra/alterra-agmc/lib"
 	"github.com/NaufalHSyahputra/alterra-agmc/models"
 	"github.com/caarlos0/env/v6"
 	"github.com/joho/godotenv"
@@ -28,6 +29,15 @@ func InitConfig() Config {
 	if err != nil {
 		log.Fatal("Error loading .env file")
 	}
+	cfg := Config{}
+	if err := env.Parse(&cfg); err != nil {
+		fmt.Printf("%+v\n", err)
+	}
+	return cfg
+}
+
+func InitConfigTest() Config {
+	lib.LoadEnv()
 	cfg := Config{}
 	if err := env.Parse(&cfg); err != nil {
 		fmt.Printf("%+v\n", err)
